@@ -2,30 +2,47 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OgloszeniaOPraceXamarin.Views.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Profil"/>
+        <ToolbarItem Text="Dodaj" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <CollectionView x:Name="AnnouncementList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <SwipeView>
                         <SwipeView.LeftItems>
-                            <SwipeItem Text="Zobacz" />
+                            <SwipeItem Text="Zobacz"
+                                       BackgroundColor="Black" />
                         </SwipeView.LeftItems>
                         <Frame Margin="10"
                                HeightRequest="50">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Company.ImageLink}" VerticalOptions="Center" Grid.Column="0"/>
-                                <FlexLayout Direction="Column" Grid.Column="1" JustifyContent="SpaceAround">
-                                    <Label Text="{Binding Title}" HorizontalTextAlignment="Center" TextColor="Black" FontSize="15"/>
-                                    <Label Text="{Binding Company.Name}" HorizontalTextAlignment="Center"/>
+                                <Image Source="{Binding Company.ImageLink}"
+                                       VerticalOptions="Center"
+                                       Grid.Column="0" />
+                                <FlexLayout Direction="Column"
+                                            Grid.Column="1"
+                                            JustifyContent="SpaceAround">
+                                    <Label Text="{Binding Title}"
+                                           HorizontalTextAlignment="Center"
+                                           TextColor="Black"
+                                           FontSize="15" />
+                                    <Label Text="{Binding Company.Name}"
+                                           HorizontalTextAlignment="Center" />
                                 </FlexLayout>
-                                <FlexLayout Direction="Column" Grid.Column="2" JustifyContent="SpaceAround">
-                                    <Label Text="{Binding TypeOfWork.Name}" HorizontalTextAlignment="Center"/>
-                                    <Label HorizontalTextAlignment="Center" TextColor="Black">
+                                <FlexLayout Direction="Column"
+                                            Grid.Column="2"
+                                            JustifyContent="SpaceAround">
+                                    <Label Text="{Binding TypeOfWork.Name}"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label HorizontalTextAlignment="Center"
+                                           TextColor="Black">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0} - {1}zl">
                                                 <Binding Path="MinWage" />

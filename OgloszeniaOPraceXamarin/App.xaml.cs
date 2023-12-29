@@ -11,11 +11,11 @@ namespace OgloszeniaOPraceXamarin {
         public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza1111111111111111111121.db3");
         public App() {
             InitializeComponent();
-            if(!File.Exists(dbPath)) {
+            if(!File.Exists(dbPath)) 
                 File.Create(dbPath);
-            }
             Setup();
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage());
+            ;
         }
         static async void Setup() {
             await CategoryRepo.GetAsync(0);
