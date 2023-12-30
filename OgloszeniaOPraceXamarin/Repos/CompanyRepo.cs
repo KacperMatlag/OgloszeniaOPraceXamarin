@@ -15,13 +15,11 @@ namespace OgloszeniaOPraceXamarin.Repos {
             }
 
         }
-
-        // Create operation
-        public static async Task AddAsync(Company company) {
+        public static async Task<Company> AddAsync(Company company) {
             await database.InsertAsync(company);
+            return company;
         }
 
-        // Read operations
         public static async Task<Company> GetAsync(int id) {
             return await database.Table<Company>().FirstOrDefaultAsync(c => c.ID == id);
         }
@@ -30,12 +28,11 @@ namespace OgloszeniaOPraceXamarin.Repos {
             return await database.Table<Company>().ToListAsync();
         }
 
-        // Update operation
-        public static async Task UpdateAsync(Company company) {
+        public static async Task<Company> UpdateAsync(Company company) {
             await database.UpdateAsync(company);
+            return company;
         }
 
-        // Delete operation
         public static async Task DeleteAsync(int id) {
             await database.DeleteAsync<Company>(id);
         }

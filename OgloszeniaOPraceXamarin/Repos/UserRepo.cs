@@ -16,16 +16,20 @@ namespace OgloszeniaOPraceXamarin.Repos {
             }
         }
 
-        public static async Task AddAsync(UserModel user) {
-            await database.InsertAsync(user);
+        public static async Task<UserModel> AddAsync(UserModel user) {
 
             if (user.Profile != null) {
-                await ProfileRepo.AddAsync(user.Profile);
+                user.Profile = await ProfileRepo.AddAsync(user.Profile);
+                user.ProfileID = user.Profile.ID;
             }
 
             if (user.Company != null) {
+                //ToDo
                 await CompanyRepo.AddAsync(user.Company);
             }
+
+            await database.InsertAsync(user);
+            return user;
         }
 
         public static async Task<UserModel> GetAsync(int id) {
@@ -50,16 +54,18 @@ namespace OgloszeniaOPraceXamarin.Repos {
             return users;
         }
 
-        public static async Task UpdateAsync(UserModel user) {
-            await database.UpdateAsync(user);
+        public static async Task<UserModel> UpdateAsync(UserModel user) {
 
             if (user.Profile != null) {
-                await ProfileRepo.UpdateAsync(user.Profile);
+               user.Profile= await ProfileRepo.UpdateAsync(user.Profile);
             }
 
             if (user.Company != null) {
+                //ToDo
                 await CompanyRepo.UpdateAsync(user.Company);
             }
+            await database.UpdateAsync(user);
+            return user;
         }
 
         public static async Task DeleteAsync(int id) {
@@ -67,11 +73,21 @@ namespace OgloszeniaOPraceXamarin.Repos {
 
             if (user != null) {
                 await ProfileRepo.DeleteAsync(user.ProfileID.GetValueOrDefault());
-                await CompanyRepo.DeleteAsync(user.CompanyID.GetValueOrDefault());
+                //await CompanyRepo.DeleteAsync(user.CompanyID.GetValueOrDefault());
                 await database.DeleteAsync<UserModel>(id);
             }
         }
 
+        public static async Task<UserModel> Login(string login, string password) {
+            UserModel user = await database.Table<UserModel>()
+                                       .Where(u => u.Login == login)
+                                       .FirstOrDefaultAsync();
+            if (user != null && PasswordHandling.VerifyPassword(password, user.Password)) {
+                user.Profile = await ProfileRepo.GetAsync((int)user.ProfileID);
+                return user;
+            }
+            return null;
+        }
         public static async void SeedAsync() {
             List<UserModel> userModels = new List<UserModel>() {
                 new UserModel {

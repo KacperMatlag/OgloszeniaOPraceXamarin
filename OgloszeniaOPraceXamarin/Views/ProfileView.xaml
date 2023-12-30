@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OgloszeniaOPraceXamarin.Views.ProfileView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <!-- Headers -->
+
+                <Label Text="Login"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Imie"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Nazwisko"
+                       Grid.Column="0"
+                       Grid.Row="2"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Email"
+                       Grid.Column="0"
+                       Grid.Row="3"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <!-- Values -->
+
+                <Label Text="Login"
+                       Grid.Column="1"
+                       Grid.Row="0"
+                       TextColor="Black"
+                       x:Name="Login"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Imie"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       TextColor="Black"
+                       x:Name="Name"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Nazwisko"
+                       Grid.Column="1"
+                       Grid.Row="2"
+                       TextColor="Black"
+                       x:Name="Surname"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Email"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       TextColor="Black"
+                       x:Name="Email"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+            </Grid>
+            <Label Text="Twoje ogloszenia"
+                   Margin="0,20"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"
+                   FontSize="20" />
+            <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding Company.ImageLink}"
+                                   Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

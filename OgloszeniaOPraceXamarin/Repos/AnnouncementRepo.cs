@@ -47,11 +47,17 @@ namespace OgloszeniaOPraceXamarin.Repos {
         private static async Task LoadAssociatedModelsAsync(AnnouncementModel announcement) {
             if (announcement != null) {
                 announcement.Category = await database.Table<CategoryModel>().FirstOrDefaultAsync(c => c.ID == announcement.CategoryID);
-                announcement.Company = await database.Table<Company>().FirstOrDefaultAsync(c => c.ID == announcement.CompanyID);
+                announcement.Company = await CompanyRepo.GetAsync((int)announcement.CompanyID);
                 announcement.TypeOfWork = await database.Table<TypeOfWork>().FirstOrDefaultAsync(t => t.ID == announcement.TypeOfWorkID);
             }
         }
-
+        public static async Task<List<AnnouncementModel>> GetAllByUserID(int userID) {
+            List<AnnouncementModel> list=await database.Table<AnnouncementModel>().Where(a => a.UserID == userID).ToListAsync();
+            foreach (AnnouncementModel announcement in list) {
+               await LoadAssociatedModelsAsync(announcement);
+            }
+            return list;
+        }
         public static async void SeedAsync() {
             var count = await database.Table<AnnouncementModel>().CountAsync();
 

@@ -15,8 +15,9 @@ namespace OgloszeniaOPraceXamarin.Models {
 
         }
 
-        public static async Task AddAsync(ProfileModel person) {
+        public static async Task<ProfileModel> AddAsync(ProfileModel person) {
             await database.InsertAsync(person);
+            return person;
         }
 
         public static async Task<ProfileModel> GetAsync(int id) {
@@ -27,8 +28,9 @@ namespace OgloszeniaOPraceXamarin.Models {
             return await database.Table<ProfileModel>().ToListAsync();
         }
 
-        public static async Task UpdateAsync(ProfileModel person) {
+        public static async Task<ProfileModel> UpdateAsync(ProfileModel person) {
             await database.UpdateAsync(person);
+            return person;
         }
 
         public static async Task DeleteAsync(int id) {

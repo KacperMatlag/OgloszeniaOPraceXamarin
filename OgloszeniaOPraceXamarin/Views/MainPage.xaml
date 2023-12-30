@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OgloszeniaOPraceXamarin.Views.MainPage">
+             x:Class="OgloszeniaOPraceXamarin.Views.MainPage"
+             Title="Strona glowna">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Profil" />
+        <ToolbarItem Text="Profil" x:Name="ProfileActon" Clicked="ProfileActon_Clicked"/>
         <ToolbarItem Text="Dodaj" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

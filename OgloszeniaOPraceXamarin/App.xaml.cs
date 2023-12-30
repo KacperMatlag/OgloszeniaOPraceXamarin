@@ -8,7 +8,8 @@ using OgloszeniaOPraceXamarin.Views;
 
 namespace OgloszeniaOPraceXamarin {
     public partial class App : Application {
-        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza1111111111111111111121.db3");
+        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza1111111111111111111121111.db3");
+        public static UserModel user=null;
         public App() {
             InitializeComponent();
             if(!File.Exists(dbPath)) 

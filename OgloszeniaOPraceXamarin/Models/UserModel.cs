@@ -3,7 +3,7 @@ using SQLitePCL;
 namespace OgloszeniaOPraceXamarin.Models {
     public class UserModel {
         [PrimaryKey,AutoIncrement,NotNull]
-        public int? ID { get; set; }
+        public int ID { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public int? Permission { get; set; }

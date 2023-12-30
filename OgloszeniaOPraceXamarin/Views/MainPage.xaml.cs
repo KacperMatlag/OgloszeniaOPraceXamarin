@@ -18,7 +18,7 @@ namespace OgloszeniaOPraceXamarin.Views {
         }
         async void Setup() {
             await Task.Delay(3000);
-            AnnouncementList.ItemsSource=await AnnouncementRepository.GetAllAsync();
+            AnnouncementList.ItemsSource = await AnnouncementRepository.GetAllAsync();
         }
         protected override async void OnAppearing() {
             base.OnAppearing();
@@ -28,6 +28,13 @@ namespace OgloszeniaOPraceXamarin.Views {
         private async void SwipeItem_Invoked(object sender, EventArgs e) {
             AnnouncementModel announcement = (sender as SwipeItem).CommandParameter as AnnouncementModel;
             await Navigation.PushAsync(new AnnouncementView(announcement));
+        }
+
+        private async void ProfileActon_Clicked(object sender, EventArgs e) {
+            if (App.user == null)
+                await Navigation.PushAsync(new LoginPage());
+            else
+                await Navigation.PushAsync(new ProfileView());
         }
     }
 }
