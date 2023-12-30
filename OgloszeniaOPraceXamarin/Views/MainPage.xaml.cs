@@ -1,4 +1,5 @@
-﻿using OgloszeniaOPraceXamarin.Repos;
+﻿using OgloszeniaOPraceXamarin.Models;
+using OgloszeniaOPraceXamarin.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace OgloszeniaOPraceXamarin.Views {
         protected override async void OnAppearing() {
             base.OnAppearing();
             AnnouncementList.ItemsSource = await AnnouncementRepository.GetAllAsync();
+        }
+
+        private async void SwipeItem_Invoked(object sender, EventArgs e) {
+            AnnouncementModel announcement = (sender as SwipeItem).CommandParameter as AnnouncementModel;
+            await Navigation.PushAsync(new AnnouncementView(announcement));
         }
     }
 }

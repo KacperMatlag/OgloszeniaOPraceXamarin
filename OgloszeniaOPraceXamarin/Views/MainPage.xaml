@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OgloszeniaOPraceXamarin.Views.MainPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Profil"/>
+        <ToolbarItem Text="Profil" />
         <ToolbarItem Text="Dodaj" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -13,10 +13,13 @@
                     <SwipeView>
                         <SwipeView.LeftItems>
                             <SwipeItem Text="Zobacz"
-                                       BackgroundColor="Black" />
+                                       BackgroundColor="Black"
+                                       Invoked="SwipeItem_Invoked"
+                                       CommandParameter="{Binding .}" />
                         </SwipeView.LeftItems>
                         <Frame Margin="10"
-                               HeightRequest="50">
+                               HeightRequest="50"
+                               CornerRadius="10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
