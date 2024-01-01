@@ -36,5 +36,11 @@ namespace OgloszeniaOPraceXamarin.Views {
             else
                 await Navigation.PushAsync(new ProfileView());
         }
+
+        private async void Add_Clicked(object sender, EventArgs e) {
+            if (App.user != null) {
+                await Navigation.PushAsync(new AnnouncementCreate());
+            }
+        }
     }
 }

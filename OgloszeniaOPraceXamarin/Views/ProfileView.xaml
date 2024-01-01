@@ -4,6 +4,10 @@
              x:Class="OgloszeniaOPraceXamarin.Views.ProfileView">
     <ContentPage.Content>
         <StackLayout>
+            <Button Text="Wyloguj"
+                    Margin="10"
+                    x:Name="LogOut"
+                    Clicked="LogOut_Clicked" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -75,10 +79,69 @@
                    TextColor="Black"
                    HorizontalTextAlignment="Center"
                    FontSize="20" />
-            <ListView.ItemTemplate>
+            <FlexLayout Direction="Column"
+                        x:Name="CompanyForm"
+                        Margin="10">
+                <Line HeightRequest="1"
+                      BackgroundColor="Gray" />
+                <Label Text="Dodaj firme"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="20" />
+                <Entry Placeholder="Nazwa firmy"
+                       Keyboard="Text"
+                       x:Name="CompanyName" />
+                <Entry Placeholder="Opis"
+                       Keyboard="Text"
+                       x:Name="CompanyDescription" />
+                <Entry Placeholder="Link do zdjecia"
+                       Keyboard="Text"
+                       x:Name="CompanyImage" />
+                <Entry Placeholder="Nip"
+                       Keyboard="Numeric"
+                       x:Name="NIP" />
+                <Button Text="Dodaj firme"
+                        x:Name="CompanyAddButton"
+                        Clicked="CompanyAddButton_Clicked" />
+                <Line HeightRequest="1"
+                      BackgroundColor="Gray" />
+            </FlexLayout>
+            <ListView x:Name="UserAnnouncementList">
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell ImageSource="{Binding Company.ImageLink}"
-                                   Text="{Binding Title}" />
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Company.ImageLink}"
+                                       Grid.Column="0" />
+                                <Label VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       Text="{Binding Title}"
+                                       Grid.Column="1" />
+                                <Button VerticalOptions="Center"
+                                        Text="Edit"
+                                        BackgroundColor="Blue"
+                                        TextColor="White"
+                                        Grid.Column="2"
+                                        x:Name="Edit"
+                                        Clicked="Edit_Clicked"
+                                        CommandParameter="{Binding .}" />
+                                <Button VerticalOptions="Center"
+                                        Text="Delete"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        Grid.Column="3"
+                                        x:Name="Delete"
+                                        Clicked="Delete_Clicked"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

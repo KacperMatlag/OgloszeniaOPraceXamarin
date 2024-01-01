@@ -20,5 +20,7 @@ namespace OgloszeniaOPraceXamarin.Models {
         public Company Company { get; set; }
         [Ignore]
         public TypeOfWork TypeOfWork { get; set; }
+        [Ignore]
+        public UserModel User { get; set; }
     }
 }

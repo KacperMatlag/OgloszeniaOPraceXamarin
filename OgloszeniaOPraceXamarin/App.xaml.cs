@@ -8,7 +8,7 @@ using OgloszeniaOPraceXamarin.Views;
 
 namespace OgloszeniaOPraceXamarin {
     public partial class App : Application {
-        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza1111111111111111111121111.db3");
+        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza111111111111111111112111111.db3");
         public static UserModel user=null;
         public App() {
             InitializeComponent();
@@ -16,7 +16,6 @@ namespace OgloszeniaOPraceXamarin {
                 File.Create(dbPath);
             Setup();
             MainPage = new NavigationPage(new MainPage());
-            ;
         }
         static async void Setup() {
             await CategoryRepo.GetAsync(0);

@@ -15,8 +15,9 @@ namespace OgloszeniaOPraceXamarin.Repos {
             }
         }
 
-        public static async Task AddAsync(CategoryModel category) {
+        public static async Task<CategoryModel> AddAsync(CategoryModel category) {
             await database.InsertAsync(category);
+            return category;
         }
 
         public static async Task<CategoryModel> GetAsync(int id) {
@@ -27,8 +28,9 @@ namespace OgloszeniaOPraceXamarin.Repos {
             return await database.Table<CategoryModel>().ToListAsync();
         }
 
-        public static async Task UpdateAsync(CategoryModel category) {
+        public static async Task<CategoryModel> UpdateAsync(CategoryModel category) {
             await database.UpdateAsync(category);
+            return category;
         }
 
         public static async Task DeleteAsync(int id) {

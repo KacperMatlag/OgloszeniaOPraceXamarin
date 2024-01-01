@@ -32,12 +32,13 @@ namespace OgloszeniaOPraceXamarin.Repos {
             return announcement;
         }
 
-        public static async Task<int> CreateAsync(AnnouncementModel announcement) {
+        public static async Task<AnnouncementModel> CreateAsync(AnnouncementModel announcement) {
             if (announcement.ID != 0) {
-                return await database.UpdateAsync(announcement);
+                await database.UpdateAsync(announcement);
             } else {
-                return await database.InsertAsync(announcement);
+                await database.InsertAsync(announcement);
             }
+            return announcement;
         }
 
         public static async Task<int> DeleteAsync(AnnouncementModel announcement) {
@@ -47,14 +48,15 @@ namespace OgloszeniaOPraceXamarin.Repos {
         private static async Task LoadAssociatedModelsAsync(AnnouncementModel announcement) {
             if (announcement != null) {
                 announcement.Category = await database.Table<CategoryModel>().FirstOrDefaultAsync(c => c.ID == announcement.CategoryID);
-                announcement.Company = await CompanyRepo.GetAsync((int)announcement.CompanyID);
+                announcement.Company = await database.Table<Company>().FirstOrDefaultAsync(c => c.ID == announcement.CompanyID);
                 announcement.TypeOfWork = await database.Table<TypeOfWork>().FirstOrDefaultAsync(t => t.ID == announcement.TypeOfWorkID);
+                announcement.User = await database.Table<UserModel>().FirstOrDefaultAsync(u => u.ID == announcement.UserID);
             }
         }
         public static async Task<List<AnnouncementModel>> GetAllByUserID(int userID) {
-            List<AnnouncementModel> list=await database.Table<AnnouncementModel>().Where(a => a.UserID == userID).ToListAsync();
+            List<AnnouncementModel> list = await database.Table<AnnouncementModel>().Where(a => a.UserID == userID).ToListAsync();
             foreach (AnnouncementModel announcement in list) {
-               await LoadAssociatedModelsAsync(announcement);
+                await LoadAssociatedModelsAsync(announcement);
             }
             return list;
         }

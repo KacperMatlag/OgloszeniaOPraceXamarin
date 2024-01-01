@@ -4,8 +4,12 @@
              x:Class="OgloszeniaOPraceXamarin.Views.MainPage"
              Title="Strona glowna">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Profil" x:Name="ProfileActon" Clicked="ProfileActon_Clicked"/>
-        <ToolbarItem Text="Dodaj" />
+        <ToolbarItem Text="Profil"
+                     x:Name="ProfileActon"
+                     Clicked="ProfileActon_Clicked" />
+        <ToolbarItem Text="Dodaj"
+                     x:Name="Add"
+                     Clicked="Add_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <CollectionView x:Name="AnnouncementList">
@@ -43,7 +47,7 @@
                                 <FlexLayout Direction="Column"
                                             Grid.Column="2"
                                             JustifyContent="SpaceAround">
-                                    <Label Text="{Binding TypeOfWork.Name}"
+                                    <Label Text="{Binding Category.Name}"
                                            HorizontalTextAlignment="Center" />
                                     <Label HorizontalTextAlignment="Center"
                                            TextColor="Black">

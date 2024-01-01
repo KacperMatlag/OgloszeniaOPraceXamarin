@@ -84,6 +84,7 @@ namespace OgloszeniaOPraceXamarin.Repos {
                                        .FirstOrDefaultAsync();
             if (user != null && PasswordHandling.VerifyPassword(password, user.Password)) {
                 user.Profile = await ProfileRepo.GetAsync((int)user.ProfileID);
+                user.Company=await CompanyRepo.GetAsync(user.CompanyID.GetValueOrDefault());
                 return user;
             }
             return null;
