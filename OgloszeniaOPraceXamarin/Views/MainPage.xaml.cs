@@ -38,7 +38,7 @@ namespace OgloszeniaOPraceXamarin.Views {
         }
 
         private async void Add_Clicked(object sender, EventArgs e) {
-            if (App.user != null) {
+            if (App.user != null&&App.user.Company!=null) {
                 await Navigation.PushAsync(new AnnouncementCreate());
             }
         }
