@@ -20,9 +20,15 @@
                         Margin="10"
                         TextColor="White" />
             </FlexLayout>
+            <Label x:Name="Quantity"
+                   Text="Liczba aplikacji: 0"
+                   VerticalTextAlignment="Center"
+                   TextColor="Black" 
+                   Margin="5"/>
             <FlexLayout Margin="10"
                         JustifyContent="SpaceEvenly"
-                        x:Name="ApplicationButton">
+                        x:Name="ApplicationButton"
+                        IsVisible="false">
                 <Button WidthRequest="100"
                         Text="Aplikuj"
                         x:Name="Applicate"

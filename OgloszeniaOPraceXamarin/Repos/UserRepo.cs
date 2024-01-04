@@ -11,21 +11,18 @@ namespace OgloszeniaOPraceXamarin.Repos {
         static UserRepo() {
             database = new SQLiteAsyncConnection(App.dbPath);
             database.CreateTableAsync<UserModel>().Wait();
+
+        }
+        public static async Task Seed() {
             if (database.Table<UserModel>().CountAsync().Result == 0) {
-                SeedAsync();
+                await SeedAsync();
             }
         }
-
         public static async Task<UserModel> AddAsync(UserModel user) {
 
             if (user.Profile != null) {
                 user.Profile = await ProfileRepo.AddAsync(user.Profile);
                 user.ProfileID = user.Profile.ID;
-            }
-
-            if (user.Company != null) {
-                //ToDo
-                await CompanyRepo.AddAsync(user.Company);
             }
 
             await database.InsertAsync(user);
@@ -57,12 +54,7 @@ namespace OgloszeniaOPraceXamarin.Repos {
         public static async Task<UserModel> UpdateAsync(UserModel user) {
 
             if (user.Profile != null) {
-               user.Profile= await ProfileRepo.UpdateAsync(user.Profile);
-            }
-
-            if (user.Company != null) {
-                //ToDo
-                await CompanyRepo.UpdateAsync(user.Company);
+                user.Profile = await ProfileRepo.UpdateAsync(user.Profile);
             }
             await database.UpdateAsync(user);
             return user;
@@ -84,12 +76,12 @@ namespace OgloszeniaOPraceXamarin.Repos {
                                        .FirstOrDefaultAsync();
             if (user != null && PasswordHandling.VerifyPassword(password, user.Password)) {
                 user.Profile = await ProfileRepo.GetAsync((int)user.ProfileID);
-                user.Company=await CompanyRepo.GetAsync(user.CompanyID.GetValueOrDefault());
+                user.Company = await CompanyRepo.GetAsync(user.CompanyID.GetValueOrDefault());
                 return user;
             }
             return null;
         }
-        public static async void SeedAsync() {
+        private static async Task SeedAsync() {
             List<UserModel> userModels = new List<UserModel>() {
                 new UserModel {
                     ID = 1,
@@ -103,6 +95,14 @@ namespace OgloszeniaOPraceXamarin.Repos {
                     ID = 2,
                     Login="Login1",
                     Password=PasswordHandling.HashPassword("Password1"),
+                    CompanyID=1,
+                    Permission=1,
+                    ProfileID=1,
+                },
+                new UserModel {
+                    ID = 2,
+                    Login="Login2",
+                    Password=PasswordHandling.HashPassword("Password2"),
                     CompanyID=1,
                     Permission=1,
                     ProfileID=1,

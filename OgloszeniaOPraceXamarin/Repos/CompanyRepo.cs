@@ -10,10 +10,11 @@ namespace OgloszeniaOPraceXamarin.Repos {
         static CompanyRepo() {
             database = new SQLiteAsyncConnection(App.dbPath);
             database.CreateTableAsync<Company>().Wait();
+        }
+        public static async Task Seed() {
             if (database.Table<Company>().CountAsync().Result == 0) {
-                SeedAsync();
+                await SeedAsync();
             }
-
         }
         public static async Task<Company> AddAsync(Company company) {
             await database.InsertAsync(company);
@@ -37,7 +38,7 @@ namespace OgloszeniaOPraceXamarin.Repos {
             await database.DeleteAsync<Company>(id);
         }
 
-        public static async void SeedAsync() {
+        private static async Task SeedAsync() {
             List<Company> companies = new List<Company> {
                 new Company { ID=1,Name = "Tech Solutions Inc", Description = "Information Technology", NIP = 123456789, Location = "City A", ImageLink = "https://www.gotowelogo.pl/wp-content/uploads/2019/12/Gotowelogo_579.png" },
                 new Company { ID=2,Name = "ABC Corp", Description = "Software Development", NIP = 987654321, Location = "City B", ImageLink = "https://projektowane.pl/site_media/uploads/artykuly/starbucks-logo.png" },

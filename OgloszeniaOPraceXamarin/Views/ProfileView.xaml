@@ -145,6 +145,46 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <StackLayout x:Name="Applications">
+                <Label Text="Aplikacje"
+                       HorizontalTextAlignment="Center"
+                       TextColor="Black"
+                       FontSize="20"
+                       Margin="10" />
+                <ListView x:Name="ApplicationsList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Announcement.Title}"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           Grid.Column="0" />
+                                    <Button Text="Akceptuj"
+                                            x:Name="Accept"
+                                            BackgroundColor="Green"
+                                            Grid.Column="1"
+                                            Clicked="Accept_Clicked"
+                                            CommandParameter="{Binding .}" 
+                                            TextColor="White"/>
+                                    <Button Text="Odrzuc"
+                                            x:Name="Denied"
+                                            BackgroundColor="Red"
+                                            Grid.Column="2"
+                                            Clicked="Denied_Clicked"
+                                            CommandParameter="{Binding .}"
+                                            TextColor="White" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -18,6 +18,9 @@ namespace OgloszeniaOPraceXamarin.Views {
             if (App.user != null && App.user.Company != null) {
                 CompanyForm.IsVisible = false;
             }
+            if(App.user!=null&&App.user.Company == null) {
+                Applications.IsVisible = false;
+            }
             Title = $"Profil uzytkownika: {App.user.Login}";
         }
         private async void Setup() {
@@ -26,6 +29,9 @@ namespace OgloszeniaOPraceXamarin.Views {
             Surname.Text = App.user.Profile.Surname;
             Email.Text = App.user.Profile.Email;
 
+            List<ApplicationForAdvertisement> l = await ApplicationForAdvertisementRepo.getAsyncByUserID(App.user.ID);
+
+            ApplicationsList.ItemsSource = await ApplicationForAdvertisementRepo.getAsyncByUserID(App.user.ID);
             UserAnnouncementList.ItemsSource = await AnnouncementRepository.GetAllByUserID(App.user.ID);
         }
 
@@ -63,6 +69,26 @@ namespace OgloszeniaOPraceXamarin.Views {
             App.user =await UserRepo.UpdateAsync(App.user);
             await DisplayAlert("Powiadomienie", "Pomyslnie zaaktualizowano profil","OK");
             CompanyForm.IsVisible = true;
+        }
+
+        private async void Accept_Clicked(object sender, EventArgs e) {
+            if((sender as Button).CommandParameter is ApplicationForAdvertisement data) {
+                bool alert=await DisplayAlert("Aplikacja", $"Czy na pewno chcesz zaakceptowac aplikacje uzytkownika {data.User.Login}","Tak","Nie");
+                if (alert) {
+                    await ApplicationForAdvertisementRepo.DeleteAsync(data.UserID, data.AnnouncementID);
+                    ApplicationsList.ItemsSource = await ApplicationForAdvertisementRepo.getAsyncByUserID(App.user.ID);
+                }
+            }
+        }
+
+        private async void Denied_Clicked(object sender, EventArgs e) {
+            if ((sender as Button).CommandParameter is ApplicationForAdvertisement data) {
+                bool alert = await DisplayAlert("Aplikacja", $"Czy na pewno chcesz odrzucic aplikacje uzytkownika {data.User.Login}", "Tak", "Nie");
+                if (alert) {
+                    await ApplicationForAdvertisementRepo.DeleteAsync(data.UserID, data.AnnouncementID);
+                    ApplicationsList.ItemsSource = await ApplicationForAdvertisementRepo.getAsyncByUserID(App.user.ID);
+                }
+            }
         }
     }
 }

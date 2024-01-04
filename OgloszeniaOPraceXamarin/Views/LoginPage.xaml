@@ -39,7 +39,7 @@
             <Label Text="Email" />
             <Entry x:Name="REmail"
                    Keyboard="Email" />
-            <Button Text="Zaloguj"
+            <Button Text="Zarejestruj"
                     BackgroundColor="LightBlue"
                     BorderColor="Transparent"
                     BorderWidth="0"

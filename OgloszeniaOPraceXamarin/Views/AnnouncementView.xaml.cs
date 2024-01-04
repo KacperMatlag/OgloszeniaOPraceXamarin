@@ -15,21 +15,20 @@ namespace OgloszeniaOPraceXamarin.Views {
             if (App.user != null && App.user.ID == announcement.User.ID) {
                 Toolbar.IsVisible = true;
             }
-            if (App.user == null || App.user.ID == announcement.User.ID) {
-                ApplicationButton.IsVisible = false;
+            if (App.user != null && App.user.ID != announcement.User.ID) {
+                ApplicationButton.IsVisible = true;
+                Quantity.IsVisible = false;
+                CheckApplication();
             }
-
-
-            CheckApplication();
             Setup();
         }
         async void Setup() {
-            int x = await ApplicationForAdvertisementRepo.getCount(_announcement.ID);
-            ApplicationQuantity.Text = "Liczba aplikacji: " + x;
+            int count = await ApplicationForAdvertisementRepo.getCount(_announcement.ID);
+            ApplicationQuantity.Text = Quantity.Text = "Liczba aplikacji: " + count;
+
         }
         async void CheckApplication() {
-            bool z = await ApplicationForAdvertisementRepo.isApplicating(App.user.ID, _announcement.ID);
-            if (z) {
+            if (await ApplicationForAdvertisementRepo.isApplicating(App.user.ID, _announcement.ID)) {
                 Applicate.Text = "Anuluj aplikacje";
             } else {
                 Applicate.Text = "Aplikuj";
@@ -40,8 +39,7 @@ namespace OgloszeniaOPraceXamarin.Views {
         }
 
         private async void Delete_Clicked(object sender, System.EventArgs e) {
-            bool result = await DisplayAlert("Ostrzezenie", "Czy na pewno chcesz usunac to ogloszenie?", "Tak", "Nie");
-            if (result) {
+            if (await DisplayAlert("Ostrzezenie", "Czy na pewno chcesz usunac to ogloszenie?", "Tak", "Nie")) {
                 await AnnouncementRepository.DeleteAsync(_announcement);
                 await Navigation.PopToRootAsync();
             }

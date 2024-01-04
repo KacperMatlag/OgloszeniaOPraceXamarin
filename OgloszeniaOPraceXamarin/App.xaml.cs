@@ -8,7 +8,7 @@ using OgloszeniaOPraceXamarin.Views;
 
 namespace OgloszeniaOPraceXamarin {
     public partial class App : Application {
-        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza11111111111111111111211111111.db3");
+        public static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "baza_1.db3");
         public static UserModel user=null;
         public App() {
             InitializeComponent();
@@ -18,13 +18,13 @@ namespace OgloszeniaOPraceXamarin {
             MainPage = new NavigationPage(new MainPage());
         }
         static async void Setup() {
-            await CategoryRepo.GetAsync(0);
-            await CompanyRepo.GetAsync(0);
-            await ProfileRepo.GetAsync(0);
-            await TypeOfWorkRepo.GetAsync(0);
-            await UserRepo.GetAsync(0);
-            await AnnouncementRepository.GetByIdAsync(0);
-            await ApplicationForAdvertisementRepo.getCount(0);
+            await CategoryRepo.Seed();
+            await CompanyRepo.Seed();
+            await ProfileRepo.Seed();
+            await TypeOfWorkRepo.Seed();
+            await UserRepo.Seed();
+            await AnnouncementRepository.Seed();
+            await ApplicationForAdvertisementRepo.getAsyncByUserID(0);
         }
     }
 }

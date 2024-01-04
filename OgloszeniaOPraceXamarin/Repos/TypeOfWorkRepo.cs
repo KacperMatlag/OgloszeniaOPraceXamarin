@@ -9,8 +9,11 @@ namespace OgloszeniaOPraceXamarin.Models {
         static TypeOfWorkRepo() {
             _connection = new SQLiteAsyncConnection(App.dbPath);
             _connection.CreateTableAsync<TypeOfWork>().Wait();
+        }
+
+        public static async Task Seed() {
             if (_connection.Table<TypeOfWork>().CountAsync().Result == 0) {
-                SeedAsync();
+               await SeedAsync();
             }
         }
 
@@ -34,7 +37,7 @@ namespace OgloszeniaOPraceXamarin.Models {
             await _connection.DeleteAsync<TypeOfWork>(id);
         }
 
-        public static async void SeedAsync() {
+        private static async Task SeedAsync() {
             List<TypeOfWork> models = new List<TypeOfWork>() {
                 new TypeOfWork() {
                     ID = 1,

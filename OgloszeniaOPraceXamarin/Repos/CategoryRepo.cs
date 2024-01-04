@@ -10,11 +10,13 @@ namespace OgloszeniaOPraceXamarin.Repos {
         static CategoryRepo() {
             database = new SQLiteAsyncConnection(App.dbPath);
             database.CreateTableAsync<CategoryModel>().Wait();
+            
+        }
+        public static async Task Seed() {
             if (database.Table<CategoryModel>().CountAsync().Result == 0) {
                 SeedAsync();
             }
         }
-
         public static async Task<CategoryModel> AddAsync(CategoryModel category) {
             await database.InsertAsync(category);
             return category;
@@ -37,10 +39,7 @@ namespace OgloszeniaOPraceXamarin.Repos {
             await database.DeleteAsync<CategoryModel>(id);
         }
 
-        public static async void SeedAsync() {
-
-
-
+        private static async Task SeedAsync() {
             List<CategoryModel> models = new List<CategoryModel>() {
                 new CategoryModel() {
                     ID = 1,

@@ -9,10 +9,12 @@ namespace OgloszeniaOPraceXamarin.Models {
         static ProfileRepo() {
             database = new SQLiteAsyncConnection(App.dbPath);
             database.CreateTableAsync<ProfileModel>().Wait();
-            if (database.Table<ProfileModel>().CountAsync().Result == 0) {
-                SeedAsync();
-            }
+        }
 
+        public static async Task Seed() {
+            if (database.Table<ProfileModel>().CountAsync().Result == 0) {
+                await SeedAsync();
+            }
         }
 
         public static async Task<ProfileModel> AddAsync(ProfileModel person) {
@@ -37,7 +39,7 @@ namespace OgloszeniaOPraceXamarin.Models {
             await database.DeleteAsync<ProfileModel>(id);
         }
 
-        public static async void SeedAsync() {
+        private static async Task SeedAsync() {
             List<ProfileModel> profiles = new List<ProfileModel>
             {
                 new ProfileModel { Name = "John", Surname = "Doe", Email = "john.doe@example.com" },

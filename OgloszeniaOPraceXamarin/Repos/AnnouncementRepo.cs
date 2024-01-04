@@ -11,11 +11,13 @@ namespace OgloszeniaOPraceXamarin.Repos {
         static AnnouncementRepository() {
             database = new SQLiteAsyncConnection(App.dbPath);
             database.CreateTableAsync<AnnouncementModel>().Wait();
+            
+        }
+        public static async Task Seed() {
             if (database.Table<AnnouncementModel>().CountAsync().Result == 0) {
-                SeedAsync();
+               await SeedAsync();
             }
         }
-
         public static async Task<List<AnnouncementModel>> GetAllAsync() {
             var announcements = await database.Table<AnnouncementModel>().ToListAsync();
 
@@ -60,7 +62,7 @@ namespace OgloszeniaOPraceXamarin.Repos {
             }
             return list;
         }
-        public static async void SeedAsync() {
+        private static async Task SeedAsync() {
             var count = await database.Table<AnnouncementModel>().CountAsync();
 
             if (count == 0) {

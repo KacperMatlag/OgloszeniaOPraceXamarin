@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,12 @@ namespace OgloszeniaOPraceXamarin.Repos {
            await _database.DeleteAsync(x);
         }
         public static async Task<List<ApplicationForAdvertisement>> getAsyncByUserID(int userID) {
-            return await _database.Table<ApplicationForAdvertisement>().Where(e => e.UserID == userID).ToListAsync();
+            List<ApplicationForAdvertisement> list = await _database.Table<ApplicationForAdvertisement>().ToListAsync();
+            foreach (var item in list) {
+                item.User = await UserRepo.GetAsync(item.UserID);
+                item.Announcement=await AnnouncementRepository.GetByIdAsync(item.UserID);
+            }
+           return list.Where(e=>e.Announcement.UserID==userID).ToList();
         }
         public static async Task<int> getCount(int announcementID) {
             return await _database.Table<ApplicationForAdvertisement>().Where(e => e.AnnouncementID == announcementID).CountAsync();
